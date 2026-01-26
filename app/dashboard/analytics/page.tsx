@@ -15,19 +15,31 @@ async function getAnalytics() {
 
   // Registrations by hour
   const hourCounts = new Array(24).fill(0);
-  registrations.forEach((reg) => {
-    const hour = new Date(reg.createdAt).getHours();
-    hourCounts[hour]++;
-  });
+  registrations.forEach(
+    (reg: {
+      createdAt: Date;
+      checkedInAt: Date | null;
+      attendance: boolean;
+    }) => {
+      const hour = new Date(reg.createdAt).getHours();
+      hourCounts[hour]++;
+    },
+  );
 
   // Check-ins by hour
   const checkInHourCounts = new Array(24).fill(0);
-  registrations.forEach((reg) => {
-    if (reg.checkedInAt) {
-      const hour = new Date(reg.checkedInAt).getHours();
-      checkInHourCounts[hour]++;
-    }
-  });
+  registrations.forEach(
+    (reg: {
+      createdAt: Date;
+      checkedInAt: Date | null;
+      attendance: boolean;
+    }) => {
+      if (reg.checkedInAt) {
+        const hour = new Date(reg.checkedInAt).getHours();
+        checkInHourCounts[hour]++;
+      }
+    },
+  );
 
   // Peak hours
   const peakRegistrationHour = hourCounts.indexOf(Math.max(...hourCounts));
