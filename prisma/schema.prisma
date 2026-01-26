@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+model Registration {
+  id                 String    @id @default(uuid())
+  fullName           String    @map("full_name")
+  companyName        String    @map("company_name")
+  phoneNumber        String    @unique @map("phone_number")
+  attendance         Boolean   @default(false)
+  qrToken            String    @unique @map("qr_token") @db.VarChar(255)
+  checkedInAt        DateTime? @map("checked_in_at")
+  note               String?
+  createdAt          DateTime  @default(now()) @map("created_at")
+  registrationIp     String?   @map("registration_ip")
+  userAgent          String?   @map("user_agent")
+  checkInDeviceId    String?   @map("check_in_device_id")
+  
+  auditLogs          AuditLog[]
+
+  @@map("registrations")
+  @@index([qrToken])
+  @@index([phoneNumber])
+  @@index([attendance])
+}
+
+model AdminUser {
+  id           String    @id @default(uuid())
+  username     String    @unique
+  passwordHash String    @map("password_hash")
+  role         String    @default("admin")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  lastLogin    DateTime? @map("last_login")
+  
+  auditLogs    AuditLog[]
+
+  @@map("admin_users")
+}
+
+model AuditLog {
+  id                   String        @id @default(uuid())
+  action               String        // 'check_in', 'manual_check_in', 'edit', 'delete', 'export'
+  targetRegistrationId String?       @map("target_registration_id")
+  timestamp            DateTime      @default(now())
+  deviceInfo           String?       @map("device_info")
+  ipAddress            String?       @map("ip_address")
+  details              Json?         // Flexible JSON for additional data
+  
+  admin                AdminUser?    @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  registration         Registration? @relation(fields: [targetRegistrationId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+  @@index([adminId])
+  @@index([targetRegistrationId])
+  @@index([timestamp])
+}
