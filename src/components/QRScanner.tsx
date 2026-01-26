@@ -20,7 +20,7 @@ export default function QRScanner() {
   const scannerFrameRef = useRef<HTMLDivElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const processingRef = useRef(false);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   const generateDeviceId = () => {
     if (typeof window !== "undefined") {

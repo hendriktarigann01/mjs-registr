@@ -1,4 +1,4 @@
-import { Ratelimit as UpstashRatelimit } from "@upstash/ratelimit";
+import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 // Simple in-memory rate limiter for development
@@ -33,35 +33,33 @@ class InMemoryRateLimit {
   }
 }
 
-// Check if in production and Upstash is configured
-const isProduction = process.env.NODE_ENV === "production";
+// Check if Upstash is configured
 const hasUpstashConfig =
   process.env.UPSTASH_REDIS_REST_URL &&
   process.env.UPSTASH_REDIS_REST_TOKEN &&
   process.env.UPSTASH_REDIS_REST_URL.length > 0 &&
   process.env.UPSTASH_REDIS_REST_TOKEN.length > 0;
 
-// Only use Upstash in production with valid config
+// Initialize Redis and Ratelimit if configured
 let redis = null;
-let Ratelimit = null;
+let useUpstash = false;
 
-if (isProduction && hasUpstashConfig) {
+if (hasUpstashConfig) {
   try {
     redis = new Redis({
       url: process.env.UPSTASH_REDIS_REST_URL!,
       token: process.env.UPSTASH_REDIS_REST_TOKEN!,
     });
-
-    Ratelimit = UpstashRatelimit;
-    console.log("✅ Upstash Redis connected");
+    useUpstash = true;
+    console.log("Upstash Redis connected");
   } catch (error) {
-    console.warn("⚠️  Failed to initialize Upstash:", error);
+    console.warn("Failed to initialize Upstash:", error);
   }
 }
 
 // Create rate limiters
 export const registrationRateLimit =
-  redis && Ratelimit
+  useUpstash && redis
     ? new Ratelimit({
         redis,
         limiter: Ratelimit.slidingWindow(3, "1 h"),
@@ -76,7 +74,7 @@ export const registrationRateLimit =
       };
 
 export const checkInRateLimit =
-  redis && Ratelimit
+  useUpstash && redis
     ? new Ratelimit({
         redis,
         limiter: Ratelimit.slidingWindow(100, "1 m"),
@@ -91,7 +89,7 @@ export const checkInRateLimit =
       };
 
 export const apiRateLimit =
-  redis && Ratelimit
+  useUpstash && redis
     ? new Ratelimit({
         redis,
         limiter: Ratelimit.slidingWindow(60, "1 m"),
@@ -105,7 +103,6 @@ export const apiRateLimit =
         },
       };
 
-// Log status
 if (!hasUpstashConfig) {
-  console.log("ℹ️  Using in-memory rate limiting (development mode)");
+  console.log("Using in-memory rate limiting (development mode)");
 }

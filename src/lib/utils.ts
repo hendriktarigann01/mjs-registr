@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { randomUUID } from "crypto";
+import { randomUUID, createHash } from "crypto";
 import { NextRequest } from "next/server";
 
 export function cn(...inputs: ClassValue[]) {
@@ -54,9 +54,7 @@ export function getClientIp(request: NextRequest): string {
 
 // Generate device ID from user agent
 export function generateDeviceId(userAgent: string, ip: string): string {
-  const crypto = import("crypto");
-  const hash = crypto
-    .createHash("sha256")
+  const hash = createHash("sha256")
     .update(userAgent + ip)
     .digest("hex");
   return hash.slice(0, 16);

@@ -52,6 +52,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           name: user.username,
+          email: user.username + "@admin.local", // Admin users don't have email, use placeholder
           role: user.role,
         };
       },
@@ -61,14 +62,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as any).role;
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.id;
-        (session.user as any).role = token.role;
+        (session.user as any).id = token.id as string;
+        (session.user as any).role = token.role as string;
       }
       return session;
     },

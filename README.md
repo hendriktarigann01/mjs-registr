@@ -25,9 +25,9 @@ DIRECT_URL="postgresql://postgres:password@db.xxx.supabase.co:5432/postgres"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="generate-with-openssl-rand-base64-32"
 
-# Rate Limiting (Upstash Redis)
-UPSTASH_REDIS_REST_URL=""
-UPSTASH_REDIS_REST_TOKEN=""
+# Upstash Redis
+UPSTASH_REDIS_REST_URL="your-upstash-redis-rest-url"
+UPSTASH_REDIS_REST_TOKEN="your-upstash-redis-rest-token"
 
 # App Configuration
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
