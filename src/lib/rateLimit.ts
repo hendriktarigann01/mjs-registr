@@ -62,14 +62,14 @@ export const registrationRateLimit =
   useUpstash && redis
     ? new Ratelimit({
         redis,
-        limiter: Ratelimit.slidingWindow(3, "1 h"),
+        limiter: Ratelimit.slidingWindow(4, "1 h"),
         analytics: true,
         prefix: "ratelimit:registration",
       })
     : {
         limit: async (id: string) => {
           const limiter = new InMemoryRateLimit();
-          return limiter.limit(id, 3600000, 3); // 3 per hour
+          return limiter.limit(id, 3600000, 4); // 4 per hour
         },
       };
 
