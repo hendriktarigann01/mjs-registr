@@ -13,7 +13,7 @@ async function getAuditLogs(searchParams: SearchParams) {
   const skip = (page - 1) * limit;
   const action = searchParams.action;
 
-  const where: any = {};
+  const where: Record<string, unknown> = {};
   if (action && action !== "all") {
     where.action = action;
   }

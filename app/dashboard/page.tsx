@@ -6,7 +6,6 @@ import {
   UserCheck,
   UserX,
   TrendingUp,
-  ChartNoAxesCombined,
 } from "lucide-react";
 import Link from "next/link";
 import AnalyticsCharts from "@/components/dashboard/AnalyticsCharts";
