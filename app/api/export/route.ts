@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
     // Convert to CSV
     const csvContent = [
       headers.join(","),
-      ...rows.map((row) =>
+      ...rows.map((row: string[]) =>
         row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","),
       ),
     ].join("\n");
