@@ -45,6 +45,7 @@ model AdminUser {
 model AuditLog {
   id                   String        @id @default(uuid())
   action               String        // 'check_in', 'manual_check_in', 'edit', 'delete', 'export'
+  adminId              String?       @map("admin_id")
   targetRegistrationId String?       @map("target_registration_id")
   timestamp            DateTime      @default(now())
   deviceInfo           String?       @map("device_info")
