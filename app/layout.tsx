@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   description: "A registration system for events.",
 };
 
+if (process.env.NODE_ENV === "production" && typeof window !== "undefined") {
+  console.log = () => {};
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
