@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export default function UnifiedRegistrationForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  const name = searchParams.get("name") || "Peserta";
+  const pathname = usePathname();
+  const isSuccessRoute = pathname === "/success";
+
+  const [token, setToken] = useState<string | null>(null);
+  const [name, setName] = useState("Peserta");
 
   const [formData, setFormData] = useState({
     namaLengkap: "",
@@ -23,7 +25,22 @@ export default function UnifiedRegistrationForm() {
   const [qrImageUrl, setQrImageUrl] = useState("");
 
   // Detect if we're on success page
-  const isSuccessPage = !!token;
+  const isSuccessPage = isSuccessRoute && !!token;
+
+  useEffect(() => {
+    if (isSuccessRoute) {
+      const storedToken = sessionStorage.getItem("qr_token");
+      const storedName = sessionStorage.getItem("qr_name");
+
+      if (storedToken) {
+        setToken(storedToken);
+        setName(storedName || "Peserta");
+        // Hapus setelah dibaca — bersih
+        sessionStorage.removeItem("qr_token");
+        sessionStorage.removeItem("qr_name");
+      }
+    }
+  }, [isSuccessRoute]);
 
   useEffect(() => {
     if (token) {
@@ -56,11 +73,9 @@ export default function UnifiedRegistrationForm() {
           return;
         }
 
-        console.log("Redirecting with token:", token);
-
-        router.push(
-          `/success?token=${token}&name=${encodeURIComponent(formData.namaLengkap)}`,
-        );
+        sessionStorage.setItem("qr_token", token);
+        sessionStorage.setItem("qr_name", formData.namaLengkap);
+        router.push("/success");
       } else {
         setError(data.message || "Registrasi gagal");
       }
@@ -83,12 +98,20 @@ export default function UnifiedRegistrationForm() {
     document.body.removeChild(link);
   };
 
-  if (isSuccessPage && !token) {
+  if (isSuccessRoute && !token) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white p-4">
         <div className="max-w-md w-full p-6 space-y-4">
           <div className="text-center">
-            <p className="text-red-600">Token tidak valid</p>
+            <p className="text-red-600 text-xs mb-3">
+              Sesi telah berakhir atau halaman di-refresh.
+            </p>
+            <button
+              onClick={() => router.push("/")}
+              className="bg-brand-primary text-white py-2 px-4 text-xs rounded-lg hover:bg-brand-primary-hover transition-colors"
+            >
+              Kembali ke Registrasi
+            </button>
           </div>
         </div>
       </div>

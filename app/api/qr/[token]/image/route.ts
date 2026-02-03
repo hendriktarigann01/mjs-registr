@@ -8,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { token } = await context.params;
-
+    
     console.log("QR Image Request - Token:", token);
 
     if (!token) {

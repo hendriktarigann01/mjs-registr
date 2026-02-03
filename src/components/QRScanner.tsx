@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { X, Check } from "lucide-react";
+import { X, Check, Info } from "lucide-react";
 import jsQR from "jsqr";
 
 interface ScanResult {
@@ -9,6 +9,8 @@ interface ScanResult {
   message: string;
   name?: string;
   company?: string;
+  alreadyCheckedIn?: boolean;
+  status?: "success" | "already_checked_in" | "error";
 }
 
 export default function QRScanner() {
@@ -63,12 +65,17 @@ export default function QRScanner() {
 
       const data = await response.json();
       console.log("Check-in response:", data);
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
+      console.log("Data success:", data.success);
+      console.log("Already checked in:", data.data?.alreadyCheckedIn);
 
       setResult({
-        success: response.ok,
+        success: data.success !== false, // Use API success flag, default to true if not false
         message: data.message || "Check-in berhasil!",
         name: data.data?.registration?.fullName,
         company: data.data?.registration?.companyName,
+        alreadyCheckedIn: data.data?.alreadyCheckedIn || false,
       });
 
       // Auto-restart scanning after 3 seconds
@@ -298,13 +305,13 @@ export default function QRScanner() {
               <X className="w-4 h-4" />
             </button>
 
-            {result.success ? (
-              // Success State
+            {result.success && !result.alreadyCheckedIn ? (
+              // New Check-in Success State
               <>
                 {/* Success Icon */}
                 <div className="flex justify-center mb-6">
                   <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center">
-                    <Check className="w-4 h-4-500" />
+                    <Check className="w-4 h-4 text-white" />
                   </div>
                 </div>
 
@@ -315,6 +322,23 @@ export default function QRScanner() {
                       Selamat datang Bapak/Ibu {result.name}
                     </h3>
                   )}
+                </div>
+              </>
+            ) : result.success && result.alreadyCheckedIn ? (
+              // Already Checked In State
+              <>
+                {/* Info Icon */}
+                <div className="flex justify-center mb-6">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center">
+                    <Info className="w-4 h-4 text-white" />
+                  </div>
+                </div>
+
+                {/* Already Checked In Message */}
+                <div className="text-center">
+                  <p className="text-lg font-medium text-gray-900">
+                    {result.message}
+                  </p>
                 </div>
               </>
             ) : (
