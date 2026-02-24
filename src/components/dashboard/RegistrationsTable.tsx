@@ -18,6 +18,7 @@ interface Registration {
   fullName: string;
   companyName: string;
   phoneNumber: string;
+  gender: string;
   attendance: boolean;
   checkedInAt: Date | null;
   createdAt: Date;

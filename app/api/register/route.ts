@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
       fullName: sanitizeInput(body.namaLengkap || ""),
       companyName: sanitizeInput(body.namaPerusahaan || ""),
       phoneNumber: body.nomorHp || "",
+      gender: body.jenisKelamin || "",
       note: body.konfirmasiKehadiran === "tidak" ? "Tidak hadir" : null,
     };
 
@@ -58,6 +59,7 @@ export async function POST(request: NextRequest) {
         fullName: validatedData.fullName,
         companyName: validatedData.companyName,
         phoneNumber: validatedData.phoneNumber,
+        gender: validatedData.gender,
         qrToken,
         note: validatedData.note,
         registrationIp: clientIp,

@@ -18,6 +18,7 @@ export default function UnifiedRegistrationForm() {
     namaLengkap: "",
     namaPerusahaan: "",
     nomorHp: "",
+    jenisKelamin: "",
     konfirmasiKehadiran: "hadir",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -295,6 +296,46 @@ export default function UnifiedRegistrationForm() {
                 <p className="text-[10px] text-font-secondary mt-1">
                   Format: 08xx (max 13 digit)
                 </p>
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-xs font-medium mb-3">
+                  Jenis Kelamin<span className="text-red-500">*</span>
+                </label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="jenkel"
+                      value="laki-laki"
+                      checked={formData.jenisKelamin === "laki-laki"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          jenisKelamin: e.target.value,
+                        })
+                      }
+                      className="w-4 h-4 accent-black text-black focus:ring-black"
+                    />
+                    <span className="text-xs">Laki-laki</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="jenkel"
+                      value="perempuan"
+                      checked={formData.jenisKelamin === "perempuan"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          jenisKelamin: e.target.value,
+                        })
+                      }
+                      className="w-4 h-4 accent-black text-black focus:ring-black"
+                    />
+                    <span className="text-xs">Perempuan</span>
+                  </label>
+                </div>
               </div>
 
               <div className="mb-6">

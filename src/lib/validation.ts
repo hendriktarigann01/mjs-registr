@@ -26,6 +26,8 @@ export const registrationSchema = z.object({
       return val;
     }),
 
+  gender: z.string().min(1, "Jenis kelamin harus dipilih"),
+
   note: z.string().max(500, "Catatan terlalu panjang").optional().nullable(),
 });
 

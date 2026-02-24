@@ -68,6 +68,7 @@ async function getRegistrations(searchParams: SearchParams) {
         fullName: true,
         companyName: true,
         phoneNumber: true,
+        gender: true,
         attendance: true,
         checkedInAt: true,
         createdAt: true,

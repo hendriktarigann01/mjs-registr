@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
         fullName: true,
         companyName: true,
         phoneNumber: true,
+        gender: true, 
         attendance: true,
         checkedInAt: true,
       },
@@ -47,6 +48,7 @@ export async function POST(request: NextRequest) {
           registration: {
             fullName: registration.fullName,
             companyName: registration.companyName,
+            gender: registration.gender, 
             checkedInAt: registration.checkedInAt,
           },
         },
@@ -67,6 +69,7 @@ export async function POST(request: NextRequest) {
         id: true,
         fullName: true,
         companyName: true,
+        gender: true, 
         checkedInAt: true,
       },
     });
