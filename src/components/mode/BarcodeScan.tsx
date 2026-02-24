@@ -100,7 +100,6 @@ export default function BarcodeScan() {
         const alreadyCheckedIn = data.data?.alreadyCheckedIn || false;
 
         if (isSuccess && !alreadyCheckedIn) {
-          // ✅ Success → redirect to success page
           const name = encodeURIComponent(
             data.data?.registration?.fullName || "",
           );
@@ -255,7 +254,7 @@ export default function BarcodeScan() {
         </span>
       </div>
 
-      {/* Modal — only for already checked in & error */}
+      {/* Modal */}
       {result && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 z-50">
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden">
@@ -276,7 +275,6 @@ export default function BarcodeScan() {
             </button>
 
             {result.alreadyCheckedIn ? (
-              /* Already checked in */
               <>
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
@@ -288,9 +286,6 @@ export default function BarcodeScan() {
                   <p className="text-lg font-medium text-white">
                     {result.message}
                   </p>
-                  {result.name && (
-                    <p className="text-zinc-400 text-sm">{result.name}</p>
-                  )}
                 </div>
               </>
             ) : (

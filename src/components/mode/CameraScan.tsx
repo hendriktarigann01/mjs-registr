@@ -307,7 +307,7 @@ export default function CameraScan() {
         </div>
       </div>
 
-      {/* Modal — only for already checked in & error */}
+      {/* Modal */}
       {result && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-6 z-50">
           <div className="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden">
