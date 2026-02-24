@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const AUTO_REDIRECT_MS = 8000;
+// const AUTO_REDIRECT_MS = 10000;
+const AUTO_REDIRECT_MS = 10000000;
 
 export default function CheckInSuccess() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function CheckInSuccess() {
   }, [router]);
 
   return (
-    <div className="relative bg-[#f0f2f2] w-full min-h-screen overflow-hidden flex flex-col">
+    <div className="relative bg-white w-full min-h-screen overflow-hidden flex flex-col">
       {/* Background pattern top-left */}
       <div className="absolute top-0 left-0 w-100 h-100 z-10 pointer-events-none">
         <Image
