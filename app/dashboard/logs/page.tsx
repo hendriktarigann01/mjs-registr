@@ -25,18 +25,8 @@ async function getAuditLogs(searchParams: SearchParams) {
       skip,
       orderBy: { timestamp: "desc" },
       include: {
-        admin: {
-          select: {
-            username: true,
-            role: true,
-          },
-        },
-        registration: {
-          select: {
-            fullName: true,
-            companyName: true,
-          },
-        },
+        admin: true,
+        targetRegistration: true,
       },
     }),
     prisma.auditLog.count({ where }),
@@ -165,14 +155,14 @@ export default async function AuditLogsPage({
                                 </span>
                               </p>
                             )}
-                            {log.registration && (
+                            {log.targetRegistration && (
                               <p className="text-sm text-gray-600">
                                 Target:{" "}
                                 <span className="font-medium">
-                                  {log.registration.fullName}
+                                  {log.targetRegistration.fullName}
                                 </span>{" "}
                                 <span className="text-gray-400">
-                                  - {log.registration.companyName}
+                                  - {log.targetRegistration.companyName}
                                 </span>
                               </p>
                             )}

@@ -4,7 +4,7 @@ import { hash } from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Starting seed...");
+  console.log("Starting seed...");
 
   const adminPassword = await hash("admin123", 10);
 
@@ -18,15 +18,15 @@ async function main() {
     },
   });
 
-  console.log("✅ Admin user created:", admin.username);
+  console.log("Admin user created:", admin.username);
 
-  console.log("🎉 Seed completed!");
+  console.log("Seed completed!");
   console.log("Admin - username: admin, password: admin123");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seed failed:", e);
+    console.error("Seed failed:", e);
     process.exit(1);
   })
   .finally(async () => {

@@ -12,6 +12,7 @@ model AdminUser {
   id           String     @id @default(uuid())
   username     String     @unique
   passwordHash String     @map("password_hash")
+  role         String
   createdAt    DateTime   @default(now()) @map("created_at")
   lastLogin    DateTime?  @map("last_login")
   auditLogs    AuditLog[]
