@@ -302,7 +302,7 @@ export default function CameraScan() {
 
         <div className="absolute bottom-8 left-0 right-0 px-6 flex items-center justify-center gap-2">
           <span className="text-gray-300 text-sm">
-            Powered by MJ Solution Indonesia
+            Powered by Karindo Mitra Internasional
           </span>
         </div>
       </div>

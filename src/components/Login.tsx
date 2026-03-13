@@ -115,18 +115,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Demo Credentials */}
-          <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-            <p className="text-[10px] text-font-secondary font-medium mb-1">
-              Demo Credentials:
-            </p>
-            <p className="text-[10px] text-font-secondary">
-              Username: <span className="font-mono font-medium">admin</span>
-              <br />
-              Password: <span className="font-mono font-medium">admin123</span>
-            </p>
-          </div>
-
           <div className="h-0.5 border-t-2 border-dashed border-gray-300" />
 
           <button

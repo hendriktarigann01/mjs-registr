@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// const AUTO_REDIRECT_MS = 10000;
-const AUTO_REDIRECT_MS = 10000000;
+const AUTO_REDIRECT_MS = 10000;
+// const AUTO_REDIRECT_MS = 10000000;
 
 export default function CheckInSuccess() {
   const router = useRouter();
@@ -43,9 +43,9 @@ export default function CheckInSuccess() {
   }, [router]);
 
   return (
-    <div className="relative bg-white w-full min-h-screen overflow-hidden flex flex-col">
+    <div className="relative bg-white w-full h-screen overflow-hidden flex flex-col">
       {/* Background pattern top-left */}
-      <div className="absolute top-0 left-0 w-100 h-100 z-10 pointer-events-none">
+      {/* <div className="absolute top-0 left-0 w-100 h-100 z-10 pointer-events-none">
         <Image
           src="/entry-top.webp"
           fill
@@ -53,10 +53,10 @@ export default function CheckInSuccess() {
           unoptimized
           className="object-contain object-top-left"
         />
-      </div>
+      </div> */}
 
       {/* Background pattern bottom-right */}
-      <div className="absolute bottom-0 right-0 w-100 h-100 z-10 pointer-events-none">
+      {/* <div className="absolute bottom-0 right-0 w-100 h-100 z-10 pointer-events-none">
         <Image
           src="/entry-bottom.webp"
           fill
@@ -64,7 +64,7 @@ export default function CheckInSuccess() {
           unoptimized
           className="object-contain object-bottom-right"
         />
-      </div>
+      </div> */}
 
       {/* Animation as background layer — gender based */}
       <div className="absolute inset-0 flex justify-center items-end pointer-events-none">
@@ -75,30 +75,30 @@ export default function CheckInSuccess() {
           loop
           muted
           playsInline
-          className="h-full object-contain"
+          className="h-full w-auto max-w-none"
         />
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 flex flex-col items-center pt-16 px-8 flex-1">
+      <div className="relative z-20 flex flex-col items-center pt-16 lg:pt-6 px-8 flex-1">
         {/* Logo */}
-        <div className="mb-10">
+        <div className="mb-10 lg:mb-5 w-40 lg:w-32">
           <Image
-            src="/mjs_logo_text.png"
+            src="/karindo_logo_text.png"
             width={160}
             height={60}
-            alt="Logo MJ Solution Indonesia"
+            alt="Logo Karindo"
             unoptimized
             className="object-contain"
           />
         </div>
 
         {/* Welcome Text */}
-        <div className="text-center space-y-2">
-          <p className="text-gray-500 text-lg font-light tracking-wide">
+        <div className="text-center space-y-2 mt-0 lg:mt-2">
+          <p className="text-gray-500 text-lg lg:text-sm font-light tracking-wide">
             Welcome
           </p>
-          <h1 className="text-4xl font-semibold text-gray-700 tracking-tight">
+          <h1 className="text-4xl lg:text-xl font-medium text-gray-700 tracking-wide">
             {name}
           </h1>
         </div>
@@ -107,7 +107,7 @@ export default function CheckInSuccess() {
       {/* Footer */}
       <div className="relative z-10 pb-6 px-8 flex items-center justify-between">
         <p className="text-gray-400 text-xs">
-          Powered by MJ Solution Indonesia
+          Powered by Karindo Mitra Internasional
         </p>
       </div>
     </div>

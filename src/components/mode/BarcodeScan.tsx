@@ -250,7 +250,7 @@ export default function BarcodeScan() {
       {/* Footer */}
       <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center">
         <span className="text-zinc-600 text-sm">
-          Powered by MJ Solution Indonesia
+          Powered by Karindo Mitra Internasional
         </span>
       </div>
 

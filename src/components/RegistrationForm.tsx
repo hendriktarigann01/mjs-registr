@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { QrCode } from "lucide-react";
 
 export default function UnifiedRegistrationForm() {
   const router = useRouter();
@@ -127,7 +128,7 @@ export default function UnifiedRegistrationForm() {
         <div className="flex items-center justify-between py-4 px-2">
           <div className="flex flex-col items-center gap-2 w-32">
             <div
-              className={`w-10 h-10 rounded-full ${isSuccessPage ? "bg-brand-secondary text-brand-primary" : "bg-brand-secondary text-brand-primary"} flex items-center justify-center text-xs font-medium`}
+              className={`w-10 h-10 rounded-full ${isSuccessPage ? "bg-brand-secondary text-white" : "bg-brand-secondary text-white"} flex items-center justify-center text-xs font-medium`}
             >
               1
             </div>
@@ -136,11 +137,11 @@ export default function UnifiedRegistrationForm() {
             </span>
           </div>
           <div
-            className={`flex-1 h-0.5 ${isSuccessPage ? "bg-brand-primary" : "bg-gray-300"} mb-6`}
+            className={`flex-1 h-0.5 ${isSuccessPage ? "bg-white" : "bg-gray-300"} mb-6`}
           />
           <div className="flex flex-col items-center gap-2 w-32">
             <div
-              className={`w-10 h-10 rounded-full ${isSuccessPage ? "bg-brand-secondary text-brand-primary" : "bg-[#DFDFDF] text-font-secondary"} flex items-center justify-center text-xs ${isSuccessPage ? "font-medium" : ""}`}
+              className={`w-10 h-10 rounded-full ${isSuccessPage ? "bg-brand-secondary text-white" : "bg-[#DFDFDF] text-font-secondary"} flex items-center justify-center text-xs ${isSuccessPage ? "font-medium" : ""}`}
             >
               2
             </div>
@@ -158,14 +159,15 @@ export default function UnifiedRegistrationForm() {
             {/* Form Header */}
             <div className="flex mb-6 gap-5">
               <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-pink-100 rounded-lg">
-                <Image
+                {/* <Image
                   src="/icons/qr_code.svg"
                   alt="ID Card Icon"
                   width={24}
                   height={24}
                   className="w-6 h-6"
                   priority
-                />
+                /> */}
+                <QrCode className="w-6 h-6 text-brand-primary" />
               </div>
 
               {/* Teks */}
@@ -205,7 +207,7 @@ export default function UnifiedRegistrationForm() {
               Download QR Code
             </button>
 
-            <p className="text-red-500 text-xs text-center">
+            <p className="text-brand-primary text-xs text-center">
               *Tunjukkan QR Code saat datang ke acara
             </p>
           </>
@@ -214,15 +216,17 @@ export default function UnifiedRegistrationForm() {
           <>
             {/* Form Header */}
             <div className="flex mb-6 gap-5">
-              <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-pink-100 rounded-lg">
-                <Image
+              <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-brand-secondary rounded-lg">
+                {/* <Image
                   src="/icons/id_card.svg"
                   alt="ID Card Icon"
                   width={24}
                   height={24}
                   className="w-6 h-6"
                   priority
-                />
+                /> */}
+
+                <QrCode className="w-6 h-6" />
               </div>
 
               {/* Teks */}

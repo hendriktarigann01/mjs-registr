@@ -10,9 +10,15 @@
   --font-mono: var(--font-geist-mono);
 
   /* CUSTOM */
-  --color-brand-primary: #ff2c61;
-  --color-brand-primary-hover: #EC2053;
+  /* --color-brand-primary: #ff2c61;
+  --color-brand-primary-hover: #ec2053;
   --color-brand-secondary: #ffd5df;
+  --color-font-primary: #2b2b2b;
+  --color-font-secondary: #808080; */
+
+  --color-brand-primary: #b9151b;
+  --color-brand-primary-hover: #9c1217;
+  --color-brand-secondary: #ed3237;
   --color-font-primary: #2b2b2b;
   --color-font-secondary: #808080;
 }
